@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f3f2ee" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#141413" media="(prefers-color-scheme: dark)">
+<title>Tiempos</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23191917'/%3E%3Cpath d='M9 10h14M9 16h9M9 22h12' stroke='%23e8692a' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-play" viewBox="0 0 20 20"><path d="M6.5 4.6v10.8c0 .6.6.9 1.1.6l8.4-5.4a.7.7 0 0 0 0-1.2L7.6 4c-.5-.3-1.1 0-1.1.6Z" fill="currentColor"/></symbol>
+  <symbol id="i-pause" viewBox="0 0 20 20"><rect x="5" y="4" width="3.4" height="12" rx="1" fill="currentColor"/><rect x="11.6" y="4" width="3.4" height="12" rx="1" fill="currentColor"/></symbol>
+  <symbol id="i-reset" viewBox="0 0 20 20"><path d="M4.5 10a5.5 5.5 0 1 0 1.7-4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M5.6 2.8v3.6h3.6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-x" viewBox="0 0 20 20"><path d="m5.5 5.5 9 9m0-9-9 9" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 20 20"><path d="M10 4.5v11M4.5 10h11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="i-in" viewBox="0 0 20 20"><path d="M10 3v9m0 0-3.4-3.4M10 12l3.4-3.4M4 13.5V16h12v-2.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-out" viewBox="0 0 20 20"><path d="M10 12V3m0 0L6.6 6.4M10 3l3.4 3.4M4 13.5V16h12v-2.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-sort" viewBox="0 0 20 20"><path d="M6 4v12m0 0-2.6-2.6M6 16l2.6-2.6M11 5h6M11 9h4.5M11 13h3" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-lists" viewBox="0 0 20 20"><path d="M4 5.5h12M4 10h12M4 14.5h7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
+  <symbol id="i-edit" viewBox="0 0 20 20"><path d="m12.8 4.2 3 3L8 15H5v-3l7.8-7.8Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+  <symbol id="i-user" viewBox="0 0 20 20"><circle cx="10" cy="7" r="3.2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M3.8 16.5c.9-2.9 3.3-4.4 6.2-4.4s5.3 1.5 6.2 4.4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+  <symbol id="i-search" viewBox="0 0 20 20"><circle cx="8.8" cy="8.8" r="4.8" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="m12.4 12.4 3.8 3.8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+  <symbol id="i-flag" viewBox="0 0 20 20"><path d="M5 17V3.5m0 .5h9.5l-2 3.2 2 3.3H5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-google" viewBox="0 0 20 20"><path d="M18.2 10.2c0-.6-.1-1.2-.2-1.7h-8v3.3h4.6a4 4 0 0 1-1.7 2.6v2.1h2.8c1.6-1.5 2.5-3.7 2.5-6.3Z" fill="#4285F4"/><path d="M10 18.5c2.3 0 4.2-.8 5.6-2.1l-2.8-2.1c-.8.5-1.7.8-2.8.8-2.2 0-4-1.5-4.7-3.4H2.5v2.2A8.5 8.5 0 0 0 10 18.5Z" fill="#34A853"/><path d="M5.3 11.7a5 5 0 0 1 0-3.3V6.2H2.5a8.5 8.5 0 0 0 0 7.6l2.8-2.1Z" fill="#FBBC05"/><path d="M10 5c1.2 0 2.4.4 3.3 1.3l2.4-2.4A8.5 8.5 0 0 0 2.5 6.2l2.8 2.2C6 6.5 7.8 5 10 5Z" fill="#EA4335"/></symbol>
+</svg>
+
+<header class="top">
+  <div class="brand">Tiempos</div>
+  <button class="listname" id="btnLists" type="button" aria-label="Listas guardadas">
+    <svg class="ic"><use href="#i-lists"/></svg>
+    <span id="listLabel">Sin lista</span>
+    <span class="dirty" id="dirtyMark" hidden title="Cambios sin guardar"></span>
+  </button>
+  <button class="account" id="btnAccount" type="button" aria-label="Cuenta">
+    <span class="avatar" id="avatar"><svg class="ic"><use href="#i-user"/></svg></span>
+  </button>
+</header>
+
+<section class="general" id="general" aria-label="Cronómetro general">
+  <div class="general-in">
+    <div class="g-label">General</div>
+    <div class="g-time" id="gTime">00:00.0</div>
+    <div class="g-meta" id="gMeta"></div>
+    <div class="g-actions">
+      <button class="btn btn-main" id="gToggle" type="button"><svg class="ic"><use href="#i-play"/></svg><span>Iniciar</span></button>
+      <button class="btn btn-icon" id="gLap" type="button" title="Marcar parcial" aria-label="Marcar parcial" disabled><svg class="ic"><use href="#i-flag"/></svg></button>
+      <button class="btn btn-icon" id="gReset" type="button" title="Reiniciar general" aria-label="Reiniciar general"><svg class="ic"><use href="#i-reset"/></svg></button>
+    </div>
+  </div>
+  <ol class="laps" id="laps" hidden></ol>
+</section>
+
+<main class="wrap">
+  <div class="tools">
+    <form class="add" id="addForm" autocomplete="off">
+      <input id="addInput" type="text" placeholder="Agregar persona" maxlength="60" enterkeyhint="done" aria-label="Nombre de la persona">
+      <button class="btn btn-icon solid" type="submit" aria-label="Agregar"><svg class="ic"><use href="#i-plus"/></svg></button>
+    </form>
+    <button class="btn" id="btnImport" type="button"><svg class="ic"><use href="#i-in"/></svg><span>Importar</span></button>
+    <div class="seg" role="group" aria-label="Acciones para todos">
+      <span class="seg-l">Todos</span>
+      <button class="btn btn-icon" id="allStart" type="button" title="Iniciar a todos" aria-label="Iniciar a todos"><svg class="ic"><use href="#i-play"/></svg></button>
+      <button class="btn btn-icon" id="allPause" type="button" title="Pausar a todos" aria-label="Pausar a todos"><svg class="ic"><use href="#i-pause"/></svg></button>
+      <button class="btn btn-icon" id="allReset" type="button" title="Reiniciar a todos" aria-label="Reiniciar a todos"><svg class="ic"><use href="#i-reset"/></svg></button>
+    </div>
+    <div class="spacer"></div>
+    <div class="menu-wrap">
+      <button class="btn" id="btnSort" type="button" aria-haspopup="menu" aria-expanded="false"><svg class="ic"><use href="#i-sort"/></svg><span>Ordenar</span></button>
+      <div class="menu" id="sortMenu" role="menu" hidden>
+        <button role="menuitem" data-sort="desc">Más tiempo primero</button>
+        <button role="menuitem" data-sort="asc">Menos tiempo primero</button>
+        <button role="menuitem" data-sort="name">Por nombre</button>
+        <button role="menuitem" data-sort="orig">Orden de la lista</button>
+      </div>
+    </div>
+    <button class="btn" id="btnExport" type="button"><svg class="ic"><use href="#i-out"/></svg><span>CSV</span></button>
+    <button class="btn btn-icon" id="btnEdit" type="button" aria-pressed="false" title="Editar nombres y quitar" aria-label="Editar"><svg class="ic"><use href="#i-edit"/></svg></button>
+  </div>
+
+  <div class="subbar" id="subbar" hidden>
+    <label class="filter">
+      <svg class="ic"><use href="#i-search"/></svg>
+      <input id="filter" type="search" placeholder="Buscar" aria-label="Buscar persona">
+    </label>
+    <button class="btn ghost danger" id="clearAll" type="button" hidden>Quitar a todas</button>
+    <div class="count" id="count"></div>
+  </div>
+
+  <ol class="rows" id="rows"></ol>
+
+  <div class="empty" id="empty" hidden>
+    <p class="empty-t">Agrega personas para crear sus cronómetros.</p>
+    <p class="empty-s">Escribe un nombre arriba, o importa una lista en CSV, JSON o texto. Hasta 100 personas.</p>
+    <div class="empty-a">
+      <button class="btn" type="button" data-open="import"><svg class="ic"><use href="#i-in"/></svg><span>Importar lista</span></button>
+      <button class="btn" type="button" data-open="lists" id="emptyLists" hidden><svg class="ic"><use href="#i-lists"/></svg><span>Abrir lista guardada</span></button>
+    </div>
+  </div>
+</main>
+
+<!-- Importar -->
+<dialog class="sheet" id="dlgImport">
+  <form method="dialog" class="sheet-in" id="importForm">
+    <div class="sheet-h"><h2>Importar personas</h2><button class="btn btn-icon ghost" value="cancel" aria-label="Cerrar"><svg class="ic"><use href="#i-x"/></svg></button></div>
+    <label class="drop" id="drop">
+      <input type="file" id="file" accept=".csv,.json,.txt,text/csv,application/json,text/plain">
+      <svg class="ic"><use href="#i-in"/></svg>
+      <span><b>Elegir archivo</b> o soltarlo aquí</span>
+      <small>CSV, JSON o texto</small>
+    </label>
+    <div class="or"><span>o pega los nombres</span></div>
+    <textarea id="paste" rows="6" placeholder="Un nombre por línea, o el contenido de un CSV o JSON"></textarea>
+    <div class="preview" id="preview"></div>
+    <div class="radio">
+      <label><input type="radio" name="mode" value="replace" checked><span>Reemplazar la lista</span></label>
+      <label><input type="radio" name="mode" value="append"><span>Agregar a la lista</span></label>
+    </div>
+    <div class="sheet-f">
+      <button class="btn ghost" value="cancel">Cancelar</button>
+      <button class="btn solid" id="importGo" value="ok" disabled>Importar</button>
+    </div>
+  </form>
+</dialog>
+
+<!-- Listas -->
+<dialog class="sheet" id="dlgLists">
+  <div class="sheet-in">
+    <div class="sheet-h"><h2>Listas</h2><button class="btn btn-icon ghost" data-close aria-label="Cerrar"><svg class="ic"><use href="#i-x"/></svg></button></div>
+    <p class="where" id="where"></p>
+    <form class="save" id="saveForm" autocomplete="off">
+      <input id="saveName" type="text" maxlength="60" placeholder="Nombre de la lista" aria-label="Nombre de la lista">
+      <button class="btn solid" id="saveBtn" type="submit">Guardar</button>
+    </form>
+    <button class="linkish" id="saveAsNew" type="button" hidden>Guardar como lista nueva</button>
+    <ul class="saved" id="saved"></ul>
+  </div>
+</dialog>
+
+<!-- Cuenta -->
+<dialog class="sheet small" id="dlgAccount">
+  <div class="sheet-in">
+    <div class="sheet-h"><h2>Cuenta</h2><button class="btn btn-icon ghost" data-close aria-label="Cerrar"><svg class="ic"><use href="#i-x"/></svg></button></div>
+    <div id="accountBody"></div>
+  </div>
+</dialog>
+
+<!-- Confirmar -->
+<dialog class="sheet small" id="dlgConfirm">
+  <form method="dialog" class="sheet-in">
+    <p class="confirm-t" id="confirmText"></p>
+    <div class="sheet-f">
+      <button class="btn ghost" value="no">Cancelar</button>
+      <button class="btn solid" id="confirmYes" value="yes">Aceptar</button>
+    </div>
+  </form>
+</dialog>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="firebase-config.js"></script>
+<script type="module" src="app.js"></script>
+</body>
+</html>

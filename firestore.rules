@@ -1,0 +1,17 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Cada persona solo lee y escribe sus propias listas.
+    match /users/{uid}/listas/{lista} {
+      allow read, delete: if request.auth != null && request.auth.uid == uid;
+      allow create, update: if request.auth != null && request.auth.uid == uid
+        && request.resource.data.nombre is string
+        && request.resource.data.nombre.size() <= 60
+        && request.resource.data.personas is list
+        && request.resource.data.personas.size() <= 100;
+    }
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
