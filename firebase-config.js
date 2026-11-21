@@ -3,7 +3,9 @@
 // Si se pone en null, la app funciona sin cuenta y guarda las listas en el navegador.
 window.FIREBASE_CONFIG = {
   apiKey: "AIzaSyCfTyH5dbNtl73eAOuibQ7Lvm-6sDQgIzM",
-  authDomain: "tiempos-921ec.firebaseapp.com",
+  // La página intermedia de Google vive en el propio sitio (app/__/auth/), así la pantalla
+  // de Google dice «tiempos.taller.ink» y no «tiempos-921ec.firebaseapp.com».
+  authDomain: "tiempos.taller.ink",
   projectId: "tiempos-921ec",
   storageBucket: "tiempos-921ec.firebasestorage.app",
   messagingSenderId: "529865819187",
