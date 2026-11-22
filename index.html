@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="estilos.css?v=2">
+<link rel="stylesheet" href="estilos.css?v=5">
 </head>
 <body>
 
@@ -27,6 +27,7 @@
   <symbol id="i-edit" viewBox="0 0 20 20"><path d="m12.8 4.2 3 3L8 15H5v-3l7.8-7.8Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
   <symbol id="i-user" viewBox="0 0 20 20"><circle cx="10" cy="7" r="3.2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M3.8 16.5c.9-2.9 3.3-4.4 6.2-4.4s5.3 1.5 6.2 4.4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
   <symbol id="i-search" viewBox="0 0 20 20"><circle cx="8.8" cy="8.8" r="4.8" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="m12.4 12.4 3.8 3.8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+  <symbol id="i-down" viewBox="0 0 20 20"><path d="M5.5 3h9M5.5 17h9M6.5 3c0 3.6 3.5 4.6 3.5 7s-3.5 3.4-3.5 7M13.5 3c0 3.6-3.5 4.6-3.5 7s3.5 3.4 3.5 7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M8.3 15.6h3.4L10 13.4Z" fill="currentColor"/></symbol>
   <symbol id="i-flag" viewBox="0 0 20 20"><path d="M5 17V3.5m0 .5h9.5l-2 3.2 2 3.3H5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="i-google" viewBox="0 0 20 20"><path d="M18.2 10.2c0-.6-.1-1.2-.2-1.7h-8v3.3h4.6a4 4 0 0 1-1.7 2.6v2.1h2.8c1.6-1.5 2.5-3.7 2.5-6.3Z" fill="#4285F4"/><path d="M10 18.5c2.3 0 4.2-.8 5.6-2.1l-2.8-2.1c-.8.5-1.7.8-2.8.8-2.2 0-4-1.5-4.7-3.4H2.5v2.2A8.5 8.5 0 0 0 10 18.5Z" fill="#34A853"/><path d="M5.3 11.7a5 5 0 0 1 0-3.3V6.2H2.5a8.5 8.5 0 0 0 0 7.6l2.8-2.1Z" fill="#FBBC05"/><path d="M10 5c1.2 0 2.4.4 3.3 1.3l2.4-2.4A8.5 8.5 0 0 0 2.5 6.2l2.8 2.2C6 6.5 7.8 5 10 5Z" fill="#EA4335"/></symbol>
 </svg>
@@ -45,7 +46,7 @@
 
 <section class="general" id="general" aria-label="Cronómetro general">
   <div class="general-in">
-    <div class="g-label">General</div>
+    <div class="g-label" id="gLabel">General</div>
     <div class="g-time" id="gTime">00:00.0</div>
     <div class="g-meta" id="gMeta"></div>
     <div class="g-actions">
@@ -72,7 +73,7 @@
     </div>
     <div class="spacer"></div>
     <div class="menu-wrap">
-      <button class="btn" id="btnSort" type="button" aria-haspopup="menu" aria-expanded="false"><svg class="ic"><use href="#i-sort"/></svg><span>Ordenar</span></button>
+      <button class="btn" id="btnSort" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="Ordenar"><svg class="ic"><use href="#i-sort"/></svg><span class="m-hide">Ordenar</span></button>
       <div class="menu" id="sortMenu" role="menu" hidden>
         <button role="menuitem" data-sort="desc">Más tiempo primero</button>
         <button role="menuitem" data-sort="asc">Menos tiempo primero</button>
@@ -80,7 +81,18 @@
         <button role="menuitem" data-sort="orig">Orden de la lista</button>
       </div>
     </div>
-    <button class="btn" id="btnExport" type="button"><svg class="ic"><use href="#i-out"/></svg><span>CSV</span></button>
+    <button class="btn" id="btnMode" type="button" title="Cronómetro o cuenta regresiva"><svg class="ic"><use href="#i-down"/></svg><span id="modeLabel">Cronómetro</span></button>
+    <div class="menu-wrap">
+      <button class="btn" id="btnExport" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="Descargar"><svg class="ic"><use href="#i-out"/></svg><span class="m-hide">Descargar</span></button>
+      <div class="menu" id="exportMenu" role="menu" hidden>
+        <div class="menu-h">Tiempos</div>
+        <button role="menuitem" data-exp="times-csv">CSV <small>para Excel</small></button>
+        <button role="menuitem" data-exp="times-json">JSON <small>se puede volver a cargar</small></button>
+        <div class="menu-h">Solo la lista</div>
+        <button role="menuitem" data-exp="list-csv">CSV</button>
+        <button role="menuitem" data-exp="list-json">JSON</button>
+      </div>
+    </div>
     <button class="btn btn-icon" id="btnEdit" type="button" aria-pressed="false" title="Editar nombres y quitar" aria-label="Editar"><svg class="ic"><use href="#i-edit"/></svg></button>
   </div>
 
@@ -151,6 +163,26 @@
   </div>
 </dialog>
 
+<!-- Modo -->
+<dialog class="sheet small" id="dlgMode">
+  <form method="dialog" class="sheet-in">
+    <div class="sheet-h"><h2>Modo</h2><button class="btn btn-icon ghost" value="cancel" aria-label="Cerrar"><svg class="ic"><use href="#i-x"/></svg></button></div>
+    <div class="choice">
+      <label><input type="radio" name="tmode" value="up"><span><b>Cronómetro</b><small>Cuenta hacia arriba desde cero.</small></span></label>
+      <label><input type="radio" name="tmode" value="down"><span><b>Cuenta regresiva</b><small>Cada uno parte con un tiempo y baja hasta cero. Después sigue en negativo.</small></span></label>
+    </div>
+    <div class="limits" id="limits">
+      <div class="lim"><span>Cada persona</span><input id="pMin" type="number" min="0" max="5999" inputmode="numeric" aria-label="Minutos por persona"><i>min</i><input id="pSec" type="number" min="0" max="59" inputmode="numeric" aria-label="Segundos por persona"><i>s</i></div>
+      <div class="lim"><span>General</span><input id="gMin" type="number" min="0" max="5999" inputmode="numeric" aria-label="Minutos del general"><i>min</i><input id="gSec" type="number" min="0" max="59" inputmode="numeric" aria-label="Segundos del general"><i>s</i></div>
+      <label class="check"><input type="checkbox" id="alarm"><span>Sonar y vibrar al llegar a cero</span></label>
+    </div>
+    <div class="sheet-f">
+      <button class="btn ghost" value="cancel">Cancelar</button>
+      <button class="btn solid" value="ok">Aplicar</button>
+    </div>
+  </form>
+</dialog>
+
 <!-- Confirmar -->
 <dialog class="sheet small" id="dlgConfirm">
   <form method="dialog" class="sheet-in">
@@ -164,7 +196,7 @@
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<script src="firebase-config.js?v=2"></script>
-<script type="module" src="app.js?v=2"></script>
+<script src="firebase-config.js?v=5"></script>
+<script type="module" src="app.js?v=5"></script>
 </body>
 </html>

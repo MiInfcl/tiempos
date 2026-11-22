@@ -294,3 +294,29 @@ textarea {
   .rb { width: 40px; height: 40px; }
   .filter { width: 100%; }
 }
+
+/* ---------- cuenta regresiva ---------- */
+.row.over .t, .row.over:not(.on):not(.zero) .t, .general.over .g-time { color: var(--danger); }
+.row.over::before { background: var(--danger); opacity: 1; }
+.row.ring { animation: ring .45s ease-in-out 3; }
+@keyframes ring { 50% { background: var(--run-soft); } }
+@media (prefers-reduced-motion: reduce) { .row.ring { animation: none; } }
+.menu-h { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); padding: 8px 10px 2px; }
+.menu small { color: var(--muted); margin-left: 6px; font-size: 12px; }
+.choice { display: flex; flex-direction: column; gap: 8px; }
+.choice label { display: flex; gap: 10px; align-items: flex-start; padding: 10px 12px; border: 1px solid var(--line); border-radius: var(--radius); cursor: pointer; }
+.choice label:has(input:checked) { border-color: var(--ink); }
+.choice input { accent-color: var(--ink); margin: 3px 0 0; width: 16px; height: 16px; }
+.choice span { display: flex; flex-direction: column; gap: 2px; }
+.choice small { color: var(--muted); font-size: 13px; }
+.limits { display: flex; flex-direction: column; gap: 8px; transition: opacity .15s; }
+.limits.off { opacity: .4; pointer-events: none; }
+.lim { display: grid; grid-template-columns: 1fr 72px auto 60px auto; align-items: center; gap: 6px; }
+.lim input { height: 36px; padding: 0 8px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg); font-variant-numeric: tabular-nums; text-align: right; width: 100%; }
+.lim input:focus { outline: none; border-color: var(--ink-2); }
+.lim i { font-style: normal; color: var(--muted); font-size: 13px; }
+.check { display: flex; align-items: center; gap: 8px; font-size: 14px; cursor: pointer; margin-top: 2px; }
+.check input { accent-color: var(--ink); width: 16px; height: 16px; margin: 0; }
+.btn.is-down .ic { color: var(--run); }
+#exportMenu { min-width: 250px; }
+@media (max-width: 700px) { .m-hide { display: none; } .tools .menu-wrap > .btn:has(.m-hide) { width: 40px; padding: 0; } }
