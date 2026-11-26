@@ -1,5 +1,7 @@
 // Cuenta de Google y listas en Firestore. Solo se carga si firebase-config.js trae una configuración.
-// Ruta de datos: users/{uid}/listas/{idLista} = { nombre, personas: [..], actualizado: ms }
+// Cuenta común de Taller (Firebase tiempos-921ec). Cada app guarda en users/{uid}/<app>/...
+// Tiempos: users/{uid}/tiempos/{idLista} = { tipo: 'lista', nombre, personas: [..], actualizado: ms }
+// (hasta 2026-11-25 las listas estaban en users/{uid}/listas; se mueven solas al entrar).
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
 import {
   getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signInWithRedirect, signOut as fbSignOut,
@@ -14,7 +16,8 @@ const toList = (d) => {
   const x = d.data();
   return { id: d.id, name: x.nombre || 'Lista', people: Array.isArray(x.personas) ? x.personas : [], updatedAt: x.actualizado || 0 };
 };
-const col = () => collection(db, 'users', uid, 'listas');
+const col = () => collection(db, 'users', uid, 'tiempos');
+const legacyCol = () => collection(db, 'users', uid, 'listas');
 
 export function start(config, { onUser, onLists }) {
   const app = initializeApp(config);
@@ -44,7 +47,7 @@ export async function signIn() {
 export const signOut = () => fbSignOut(auth);
 
 export async function saveList(l) {
-  await setDoc(doc(col(), l.id), { nombre: l.name, personas: l.people, actualizado: l.updatedAt });
+  await setDoc(doc(col(), l.id), { tipo: 'lista', nombre: l.name, personas: l.people, actualizado: l.updatedAt });
 }
 
 export async function deleteList(id) {
@@ -53,9 +56,27 @@ export async function deleteList(id) {
 
 // Copia a la cuenta las listas del navegador que todavía no están en ella. Devuelve cuántas copió.
 export async function migrate(localLists) {
-  if (!uid || !localLists.length) return 0;
+  if (!uid) return 0;
+  await moveLegacy();
+  if (!localLists.length) return 0;
   const have = new Set((await getDocs(col())).docs.map((d) => d.id));
   const todo = localLists.filter((l) => !have.has(l.id));
   await Promise.all(todo.map((l) => saveList(l)));
   return todo.length;
+}
+
+// Mueve las listas de la ruta vieja (users/{uid}/listas) a la común (users/{uid}/tiempos).
+// Copia primero y borra el original solo después de que la copia quedó escrita.
+async function moveLegacy() {
+  const old = await getDocs(legacyCol());
+  if (old.empty) return 0;
+  const have = new Set((await getDocs(col())).docs.map((d) => d.id));
+  for (const d of old.docs) {
+    if (!have.has(d.id)) {
+      const x = d.data();
+      await setDoc(doc(col(), d.id), { tipo: 'lista', nombre: x.nombre || 'Lista', personas: x.personas || [], actualizado: x.actualizado || Date.now() });
+    }
+    await deleteDoc(d.ref);
+  }
+  return old.size;
 }

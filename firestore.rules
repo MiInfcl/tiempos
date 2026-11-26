@@ -1,14 +1,18 @@
 rules_version = '2';
+// Cuenta común de Taller (proyecto tiempos-921ec): cada app de taller.ink guarda lo suyo en
+//   users/{uid}            -> perfil común (opcional)
+//   users/{uid}/{app}/...  -> datos de cada app (tiempos, pendientes, reproductor, ...)
+// Cada persona solo lee y escribe lo suyo. Lo demás está cerrado.
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Cada persona solo lee y escribe sus propias listas.
-    match /users/{uid}/listas/{lista} {
-      allow read, delete: if request.auth != null && request.auth.uid == uid;
-      allow create, update: if request.auth != null && request.auth.uid == uid
-        && request.resource.data.nombre is string
-        && request.resource.data.nombre.size() <= 60
-        && request.resource.data.personas is list
-        && request.resource.data.personas.size() <= 100;
+    function isOwner(uid) {
+      return request.auth != null && request.auth.uid == uid;
+    }
+    match /users/{uid} {
+      allow read, write: if isOwner(uid);
+      match /{rest=**} {
+        allow read, write: if isOwner(uid);
+      }
     }
     match /{document=**} {
       allow read, write: if false;

@@ -241,7 +241,7 @@ function frame() {
       setTimeout(() => r.li.classList.remove('ring'), 1800);
     }
   }
-  const tt = g.start ? `${gs.slice(0, -2)} · Tiempos` : 'Tiempos';
+  const tt = g.start ? `${gs.slice(0, -2)} · Tiempos` : 'Tiempos: un cronómetro por persona';
   if (tt !== titleLast) document.title = titleLast = tt;
   requestAnimationFrame(frame);
 }
