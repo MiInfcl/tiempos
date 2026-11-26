@@ -734,7 +734,7 @@ async function startCloud() {
   const cfg = window.FIREBASE_CONFIG;
   if (!cfg || !cfg.apiKey) return;
   try {
-    cloud = await import('./nube.js');
+    cloud = await import('./nube.js?v=8');
     cloud.start(cfg, {
       onUser: async (u) => {
         user = u; renderAvatar();

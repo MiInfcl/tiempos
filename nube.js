@@ -12,6 +12,18 @@ import {
 
 let auth, db, uid = null, unsub = null;
 
+// Sesión única de taller.ink (Worker de portada en cuenta.taller.ink). Si el módulo no carga, la app sigue como antes.
+const SESION = 'https://taller.ink/cuenta/sesion.js';
+let sesion = null;
+async function conectarSesionComun() {
+  try {
+    sesion = await import(SESION);
+    sesion.conectarSesion(auth);
+  } catch (e) {
+    console.warn('Sesión única de taller.ink no disponible', e);
+  }
+}
+
 const toList = (d) => {
   const x = d.data();
   return { id: d.id, name: x.nombre || 'Lista', people: Array.isArray(x.personas) ? x.personas : [], updatedAt: x.actualizado || 0 };
@@ -24,6 +36,7 @@ export function start(config, { onUser, onLists }) {
   auth = getAuth(app);
   auth.languageCode = 'es';
   db = initializeFirestore(app, { localCache: persistentLocalCache() });
+  conectarSesionComun();
   onAuthStateChanged(auth, (u) => {
     if (unsub) { unsub(); unsub = null; }
     uid = u ? u.uid : null;
@@ -44,7 +57,7 @@ export async function signIn() {
   }
 }
 
-export const signOut = () => fbSignOut(auth);
+export const signOut = () => (sesion ? sesion.salir(auth) : fbSignOut(auth));
 
 export async function saveList(l) {
   await setDoc(doc(col(), l.id), { tipo: 'lista', nombre: l.name, personas: l.people, actualizado: l.updatedAt });
